@@ -3,7 +3,7 @@
 function getqr(a)
 
 	(q,r)=qr(a)
-	for i in [i:size(a,1)]
+	for i in [1:size(a,1)]
 		if r[i,i]<0
 			q[:,i]=-q[:,i]
 		end
@@ -11,4 +11,8 @@ function getqr(a)
 	return q
 end
 
+
+# Test
+a=[1 2 3; 4 5 6; 7 8 9]
+getqr(a)
 
