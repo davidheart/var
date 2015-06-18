@@ -1,0 +1,104 @@
+
+
+
+Sublime IJulia 설치방법 
+
+https://github.com/quinnj/Sublime-IJulia을 참조 
+
+1. IJulia를 사용하기 위해선 먼저, Anaconda를 설치 
+2. Pkg.add("ZMQ")
+3. Pkg.add("IJulia") 설치후 
+   "julia>" prompt에서 using IJulia, then notebook()을 각각 enter 한후 실행이 
+    되는지를 확인
+4. 다음 sublime text 3을 설치 
+5. 설치 요령대로  "Settings - User"을 editing을 editing할 때   
+
+   아래의 lined을 대신 insert
+
+
+    **
+    "libzmq.dll" 파일이 안내와 달리 다른 곳에 있기 때문에, "julia>" prompt에서
+     libzmq를 입력하면 위치가 나오는 데 이 위치를 아래의 파일위치를 조정
+     "zmq_shared_library": "~/.julia/v0.3/ZMQ/deps/libzmq.dll",
+
+6. 다음으로 julia가 어디에서든지 실행이 되여야 하기 때문에 
+   PATH를 조정해야 하는데 "내 PC"에서 환결설정을 통해 julia.exe이 있는 장소를 입력 
+   현재는 "c:\Julia-0.3.9/bin"
+
+7. 다음으로 kerne.jl의 위치가 맞는지를 재 확인 
+
+
+            "ijulia_kernel": "~/.julia/v0.3/IJulia/src/kernel.jl"
+
+8. 그리고 IJulia console을 열기위해 안내를 따르면 됨. 그런데 잘 안됨.
+   이 기능을 사용하기 보다 sublime-text와 julia를 동시에 열어서 사용하는 것이 더 나음 
+
+
+// "command_name" gives you the chance to name different commands
+// that will be displayed when opening a new console view.
+// e.g. " -p 4" could be used for a command that starts julia -p 4
+
+// "julia" refers to the absolute path of your julia executable.
+// By default, it is assumed that your julia is in your system PATH.
+// To launch a specific julia executable or if your julia is NOT in your
+// system PATH, modify your platform's value string below with your 
+// julia's absolute path.
+// e.g. "unix": "/home/username/julia/usr/bin/julia-release-readline"
+
+// "ijulia_kernel" refers to the IJulia backend file that starts up
+// the backend. This should not have to be changed at all.
+
+// "zmq_shared_library" refers to the absolute path of the ZMQ
+// shared library file. This file is automatically downloaded/built
+// with the installation of the IJulia package from within julia.
+// The file is located in a standard location on windows and linux (usually)
+// but is different on OSX through the homebrew installation.
+// The name of the file to locate is "libzmq.dylib" on OSX
+// "libzmq.so" or "libzmq.so.3" on linux
+
+// additional commands can be added by copying 
+/*	    
+	,{
+        "command_name": "default",
+        "julia": "julia",
+        "ijulia_kernel": "~/.julia/v0.3/IJulia/src/kernel.jl"
+    }
+*/
+// Note the comma before the 1st curly brace. This can be pasted
+// after the default command in your platform below to provide
+// different julia commands
+{
+"linux": {
+    "zmq_shared_library": "~/.julia/v0.3/ZMQ/deps/usr/lib/libzmq.so",
+    "commands": [
+        {
+            "command_name": "default",
+            "julia": "julia",
+            "julia_args": "",
+            "ijulia_kernel": "~/.julia/v0.3/IJulia/src/kernel.jl"
+        }
+    ]
+},
+"osx": {
+    "zmq_shared_library": "~/.julia/v0.4/Homebrew/deps/usr/lib/libzmq.dylib",
+    "commands": [
+        {
+            "command_name": "default",
+            "julia": "julia",
+            "julia_args": "",
+            "ijulia_kernel": "~/.julia/v0.3/IJulia/src/kernel.jl"
+        }
+    ]
+},
+"windows": {
+    "zmq_shared_library": "~/.julia/v0.3/ZMQ/deps/libzmq.dll",
+    "commands": [
+        {
+            "command_name": "default",
+            "julia": "julia-readline.exe",
+            "julia_args": "",
+            "ijulia_kernel": "~/.julia/v0.3/IJulia/src/kernel.jl"
+        }
+    ]
+}
+}
