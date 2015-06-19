@@ -35,10 +35,7 @@ out1=zeros(3,3)
 out2=zeros(1,1)
 
 
-
-
 for i in [1:reps]
-
   # Step 2: sample B conditional on sigma N(M*, Y*)
   M=inv(inv(sigma0)+(1/sigma2)*(X'*X))*(inv(sigma0)*B0+(1/sigma2)*(X'*Y))
   V=inv(inv(sigma0)+(1/sigma2)*(X'*X))
@@ -75,3 +72,22 @@ for i in [1:reps]
    end
 
 end
+
+
+#=
+Now draw some graphs using those results
+=#
+using PyPlot
+fig=figure("B histogram", figsize=(10,10))
+ax=axes()
+h=PyPlot.plt.hist(out1[:,1],50)
+grid("on")
+xlabel("X")
+ylabel("Y")
+title("Histogram")
+
+
+
+
+
+

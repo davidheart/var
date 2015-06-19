@@ -18,7 +18,7 @@ https://github.com/quinnj/Sublime-IJulia을 참조
 
     **
     "libzmq.dll" 파일이 안내와 달리 다른 곳에 있기 때문에, "julia>" prompt에서
-     libzmq를 입력하면 위치가 나오는 데 이 위치를 아래의 파일위치를 조정
+     libzmq를 입력하면 위치가 나오는 데 이 위치를 아래의 파일위치를 옮김
      "zmq_shared_library": "~/.julia/v0.3/ZMQ/deps/libzmq.dll",
 
 6. 다음으로 julia가 어디에서든지 실행이 되여야 하기 때문에 
