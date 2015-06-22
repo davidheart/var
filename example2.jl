@@ -33,6 +33,7 @@ burn=4000
 # Still wondering how to express in julia equivalently to x=[ ] in Matlab
 out1=zeros(3,3)
 out2=zeros(1,1)
+out3=zeros(1,1)
 
 
 for i in [1:reps]
@@ -69,20 +70,31 @@ for i in [1:reps]
    if i>burn
    	out1=vcat(out1, B')
 	out2=vcat(out2,sigma2)
+
+	#compute forecast for 2 yrs
+	yhat=zeros(14,1)
+	yhat[1:2]=Y[end-1:end]
+	cfactor=sqrt(sigma2)
+	for m in [3:14]
+	   yhat[m]=maximum([1 yhat[m-1] yhat[m-2]]*B+(randn(1,1)*cfactor))   
+	end
+
+	out3=vcat(out3,yhat[3:end])
    end
 
-
-   #compute forecast for 2 yrs
-
-   yhat=zeros[14,1]
-   
-
-
-
-
-
-
 end
+
+
+
+# Caveat for yhat[m]=[1 yhat[m-1] yhat[m-2]]*B+(randn(1,1)*cfactor)    
+# error--> convert function 
+
+#investigate why?
+# here issue is the same thing that "[1 yhat[m-1] yhat[m-2]]*B+(randn(1,1)*cfactor)"
+# is an array, thus it cannot be assigned to the place where 
+# scalar is accepted. 
+
+ 
 
 
 
