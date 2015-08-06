@@ -16,6 +16,9 @@ T=size(xx,1)
 X=[ones(T,1) lag0(xx,1) lag0(xx,2)]
 
 Y=df
+# change "DataFrame type Y to array type Y"
+Y=convert(Array, Y)
+
 L=2 # number of lags in VAR
 
 # Remove missing obs.
@@ -124,57 +127,58 @@ S=eye(T)
 # prior degrees of freedom
 alpha=T+1
 
+# starting values for the Gibbs sampling algorithm
+Sigma=eye(T)
+betaols=vec(inv(X'*X)*(X'*Y))
 
-# #starting values for the Gibbs sampling algorithm
-# Sigma=eye(N)
-# betaols=vec(inv(X'*X)*(X'*Y))
-#
-# Reps=40000
-# burn=30000
-# out1=[] #will store IRF of R
-# out2=[] #will store IRF of GB
-# out3=[] #will store IRF of U
-# out4=[] #will store IRF of P
+Reps=40000
+burn=30000
+
+out1=zeros(Reps,1) # will store IRF of R
+out2=zeros(Reps,1) # will store IRF of GB
+out3=zeros(Reps,1) # will store IRF of U
+out4=zeros(Reps,1) # will store IRF of P
+
+
 # i=1
-# for j=1:Reps
+# for j in 1:Reps
+
+  # step 1 draw the VAR coefficients
+  M=inv(inv(H)+kron(inv(Sigma), X'*X))*(inv(H)*B0+kron(inv(Sigma), X'*X)*betaols)
+  # V=inv(inv(H)+kron(inv(Sigma), X'*X))
+
+#   # check for stability of the VAR
+#   check=-1
+#   while check<0
+#     beta=M+(randn(1,T*(T*L+1))*chol(V))'
+#     CH=stability(beta,T,L)
+#     if CH==0
+#       check=10
+#     end
+#   end
 #
-# #step 1 draw the VAR coefficients
-# M=inv(inv(H)+kron(inv(Sigma),X'*X))*(inv(H)*B0+kron(inv(Sigma),X'*X)*betaols)
-# V=inv(inv(H)+kron(inv(Sigma),X'*X))
-# #check for stability of the VAR
-# check=-1
-# while check<0
-# beta=M+(randn(1,N*(N*L+1))*chol(V))'
-# CH=stability(beta,N,L)
-# if CH==0
-#     check=10
-# end
-# end
-#
-# #draw sigma from the IW distribution
-# e=Y-X*reshape(beta,N*L+1,N)
-# #scale matrix
-# scale=e'*e+S
-# Sigma=IWPQ(T+alpha,inv(scale))
-#
-# if j>burn
-#     #impulse response using a cholesky decomposition
+#   # draw sigma from the IW distribution
+#   e=Y-X*reshape(beta,T*L+1,T)
+#   # scale matrix
+#   scale=e'*e+S
+#   Sigma=IWPQ(T+alpha,inv(scale))
+#   if j>burn
+#     # impulse response using a cholesky decomposition
 #     A0=chol(Sigma)
 #     v=zeros(60,N)
 #     v(L+1,2)=-1 #shock the government bondyield
-#    yhat=zeros(60,N)
-#    for i=3:60
-#     yhat(i,:)=[0 yhat(i-1,:) yhat(i-2,:)]*reshape(beta,N*L+1,N)+v(i,:)*A0
-# end
-# out1=[out1 yhat(3:end,1)]
-# out2=[out2 yhat(3:end,2)]
-# out3=[out3 yhat(3:end,3)]
-# out4=[out4 yhat(3:end,4)]
-# end
-#
-# end
-#
-#
+#     yhat=zeros(60,N)
+#     for i=3:60
+#       yhat(i,:)=[0 yhat(i-1,:) yhat(i-2,:)]*reshape(beta,N*L+1,N)+v(i,:)*A0
+#     end
+#     out1=[out1 yhat(3:end,1)]
+#     out2=[out2 yhat(3:end,2)]
+#     out3=[out3 yhat(3:end,3)]
+#     out4=[out4 yhat(3:end,4)]
+#   end
+# # end
+
+
 
 
 
