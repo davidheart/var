@@ -16,8 +16,8 @@ Beta=zeros(t,1)
 Y=zeros(t,1)
 X=randn(t,1)
 for j=2:t
-    Beta(j,:)=Beta(j-1,:)+e2(j,:)
-    Y(j)=X(j,:)*Beta(j,:)'+e1(j)
+    Beta[j,:]=Beta[j-1,:]+e2[j,:]
+    Y[j]=X[j,:]*Beta[j,:]'+e1[j]
 end
 
 
