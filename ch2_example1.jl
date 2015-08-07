@@ -26,6 +26,7 @@ Y=Y[3:end,:]
 X=X[3:end,:]
 T=size(X,1)
 
+
 # compute standard deviation of each series residual via an ols
 # regression to be used in setting the prior
 
