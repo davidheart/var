@@ -193,23 +193,23 @@ qout4=zeros(58,nper)
 # "vec" is convert an array to a vector
 for i in 1:58
   qout1[i,1]=quantile(vec(out1[i,:]), 50/100)
-  qout2[i,1]=quantile(vec(out1[i,:]), 50/100)
-  qout3[i,1]=quantile(vec(out1[i,:]), 50/100)
-  qout4[i,1]=quantile(vec(out1[i,:]), 50/100)
+  qout2[i,1]=quantile(vec(out2[i,:]), 50/100)
+  qout3[i,1]=quantile(vec(out3[i,:]), 50/100)
+  qout4[i,1]=quantile(vec(out4[i,:]), 50/100)
 end
 
 for i in 1:58
   qout1[i,2]=quantile(vec(out1[i,:]), 16/100)
-  qout2[i,2]=quantile(vec(out1[i,:]), 16/100)
-  qout3[i,2]=quantile(vec(out1[i,:]), 16/100)
-  qout4[i,2]=quantile(vec(out1[i,:]), 16/100)
+  qout2[i,2]=quantile(vec(out2[i,:]), 16/100)
+  qout3[i,2]=quantile(vec(out3[i,:]), 16/100)
+  qout4[i,2]=quantile(vec(out4[i,:]), 16/100)
 end
 
 for i in 1:58
   qout1[i,3]=quantile(vec(out1[i,:]), 84/100)
-  qout2[i,3]=quantile(vec(out1[i,:]), 84/100)
-  qout3[i,3]=quantile(vec(out1[i,:]), 84/100)
-  qout4[i,3]=quantile(vec(out1[i,:]), 84/100)
+  qout2[i,3]=quantile(vec(out2[i,:]), 84/100)
+  qout3[i,3]=quantile(vec(out3[i,:]), 84/100)
+  qout4[i,3]=quantile(vec(out4[i,:]), 84/100)
 end
 
 
