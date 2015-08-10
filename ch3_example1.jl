@@ -17,8 +17,8 @@ Y=zeros(t,1)
 X=randn(t,1)
 
 for j in [2:t]
-  Beta[j]=Beta[j-1]+e2[j]
-  Y[j]=X[j]*Beta[j]'+e1[j]
+  Beta[ j ]=Beta[ j-1 ]+e2[ j ]
+  Y[ j ]=X[ j ]*Beta[ j ]'+e1[ j ]
 end
 
 # Step 1 : Set up matrices for the Kalman Filter
@@ -31,8 +31,8 @@ ptt=zeros(t,1,1)    # will hold its variance
 beta11=beta0
 p11=p00
 
-for i in [1:t]
-  x=X[i]
+for i in [ 1:t ]
+  x=X[ i ]
   #Prediction
   beta10=mu+beta11*F'
   p10=F*p11*F'+Q
@@ -59,3 +59,6 @@ ylabel("Y")
 title("Response of ")
 PyPlot.plt.show()
 #legend('estimated \beta_{t}','true \beta_{t}')
+
+
+##test git
